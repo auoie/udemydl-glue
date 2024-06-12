@@ -9,14 +9,15 @@ Make sure that you have a working Widevine Device (WVD) in the WVDs folder.
 Now the command `python3 tpd-keys.py --udemy` is runnable.
 
 Create a directory for curlconverter.
+For reference, the curlconverter repo is [here](https://github.com/curlconverter/curlconverter).
 Run `npm init -y` and `npm install curlconverter`.
 Now the command `npx curlconverter --help` is runnable
 
-The udemy downloader repo is from [here](https://github.com/curlconverter/curlconverter).
+The udemy downloader repo is from [here](https://github.com/Puyodead1/udemy-downloader).
 Create a virtual environment and install the dependencies.
 Add the following flag to the `yt-dlp` bash command in the `handle_segments` function for downloading segments: `-P temp:/tmp`
 Otherwise, my disk goes to 100% utilization when downloading encrypted m4a files.
-Replace the ffmpeg arguments `-c:v copy -c:a copy` with `-c copy -shortest` for the encrypted downloads.
+Add the `-shortest` argument after `-c:v copy -c:a copy` for the encrypted downloads.
 Otherwise, the audio is too long.
 Now the command `python3 main.py` is runnable.
 

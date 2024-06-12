@@ -136,14 +136,14 @@ def fetch_instructor_name(course_url: str) -> str | None:
     body = response.text
     soup = BeautifulSoup(body, "html.parser")
     head = soup.head
-    if head == None:
+    if head is None:
         return None
     instructors = head.find_all("meta", attrs={"property": "udemy_com:instructor"})
     if len(instructors) == 0:
         return None
     instructor_tag: Tag = instructors[0]
     instructor_url: str | None = instructor_tag.attrs["content"]
-    if instructor_url == None:
+    if instructor_url is None:
         return None
     parsed_instuctor_url = parse.urlparse(instructor_url)
     return parsed_instuctor_url.path.split("/")[2]
@@ -217,7 +217,7 @@ if __name__ == "__main__":
     )
     course_data = get_course_data(tpd_output.referer_url)
     instructor_name = fetch_instructor_name(course_data.course_url)
-    if instructor_name == None:
+    if instructor_name is None:
         print("INSTRUCTOR NOT FOUND")
         sys.exit(1)
     print("COURSE_DATA:", course_data)
