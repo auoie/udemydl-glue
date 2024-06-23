@@ -32,7 +32,7 @@ rm "$KEYFILE_PATH"
 ln -s "$COURSE_KEY_FILE" "$KEYFILE_PATH"
 
 udemy-dl \
-  --batch-download \
+  --batch-playlists \
   --embed-subs \
   --decrypt \
   --concurrent-downloads 30 \
