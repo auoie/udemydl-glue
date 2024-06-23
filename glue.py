@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from urllib import parse
 from bs4 import BeautifulSoup, Tag
 import requests
+from generated import curl_json
 
 
 def get_pssh(init_data: str) -> str:
@@ -71,10 +72,10 @@ def get_tpd_keys(curl_converter_dir: Path, tpd_keys_dir: Path):
         print("ERROR:", e, e.stderr, sep="\n")
         sys.exit(1)
     curl_json_output_str = process.stdout
-    curl_json_output = json.loads(curl_json_output_str)
-    raw_url = curl_json_output["raw_url"]
+    curl_json_output = curl_json.Model.model_validate_json(curl_json_output_str)
+    raw_url = curl_json_output.raw_url
     print("RAW URL:", raw_url, "\n", sep="\n")
-    referer_url = curl_json_output["headers"]["Referer"]
+    referer_url = curl_json_output.headers.Referer
     print("REFERER URL:", referer_url, "\n", sep="\n")
     init_data_str = init_data_txt_path.read_text().strip()
     pssh_value = get_pssh(init_data_str)
@@ -206,7 +207,7 @@ def run_udemy_downloader(
     except subprocess.CalledProcessError as e:
         print("ERROR:", e, e.stderr, sep="\n")
         sys.exit(1)
-    print(process.stdout)
+    print("Done. Status code:", process.returncode)
 
 
 if __name__ == "__main__":

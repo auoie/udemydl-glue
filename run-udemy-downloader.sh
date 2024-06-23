@@ -31,10 +31,11 @@ echo "$KEY_PAIR_JSON" > "$COURSE_KEY_FILE"
 rm "$KEYFILE_PATH"
 ln -s "$COURSE_KEY_FILE" "$KEYFILE_PATH"
 
-python3 main.py -sc \
-  --download-captions \
-  --download-quizzes \
-  --download-assets \
+udemy-dl \
+  --batch-download \
+  --embed-subs \
+  --decrypt \
+  --concurrent-downloads 30 \
   --browser firefox \
   --course "$COURSE_URL" \
-  --out "$OUTPUT_DIR"
+  --out out_dir

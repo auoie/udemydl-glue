@@ -9,10 +9,12 @@ readme = "README.md"
 python = "^3.12"
 requests = "^2.32.3"
 beautifulsoup4 = "^4.12.3"
+pydantic = "^2.7.4"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.8"
 pyright = "^1.1.367"
+datamodel-code-generator = "^0.25.7"
 
 [build-system]
 requires = ["poetry-core"]
