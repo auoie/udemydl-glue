@@ -36,6 +36,7 @@ udemy-dl \
   --embed-subs \
   --decrypt \
   --concurrent-downloads 30 \
+  --save-to-file \
   --browser firefox \
   --course "$COURSE_URL" \
   --out out_dir
