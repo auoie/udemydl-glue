@@ -79,6 +79,8 @@ def get_tpd_keys(curl_converter_dir: Path, tpd_keys_dir: Path):
     print("REFERER URL:", referer_url, "\n", sep="\n")
     init_data_str = init_data_txt_path.read_text().strip()
     pssh_value = get_pssh(init_data_str)
+    print("PSSH_KEY:", pssh_value)
+    print("RAW_URL:", raw_url)
     os.chdir(scripting_dir)
     args = ["/bin/sh", "./get-tpd.sh", str(tpd_keys_dir)]
     try:
