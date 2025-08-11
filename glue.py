@@ -80,6 +80,7 @@ def get_tpd_keys(curl_converter_dir: Path, tpd_keys_dir: Path):
     init_data_str = init_data_txt_path.read_text().strip()
     pssh_value = get_pssh(init_data_str)
     print("PSSH_KEY:", pssh_value)
+    raw_url = raw_url.replace("^&", "&") # bug in firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=1971667
     print("RAW_URL:", raw_url)
     os.chdir(scripting_dir)
     args = ["/bin/sh", "./get-tpd.sh", str(tpd_keys_dir)]

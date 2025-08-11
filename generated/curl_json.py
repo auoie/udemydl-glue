@@ -26,10 +26,10 @@ class Headers(BaseModel):
     TE: str
 
 
-class Queries(BaseModel):
-    drm_type: str
-    auth_token: str
-    CMCD: str
+# class Queries(BaseModel):
+#     drm_type: str
+#     auth_token: str
+#     CMCD: str
 
 
 class Model(BaseModel):
@@ -37,6 +37,6 @@ class Model(BaseModel):
     raw_url: str
     method: str
     headers: Headers
-    queries: Queries
+    # queries: Queries
     data: str
     compressed: bool
