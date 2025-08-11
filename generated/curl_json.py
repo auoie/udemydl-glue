@@ -23,7 +23,7 @@ class Headers(BaseModel):
     Priority: str
     Pragma: str
     Cache_Control: str = Field(..., alias="Cache-Control")
-    TE: str
+    # TE: str
 
 
 # class Queries(BaseModel):
