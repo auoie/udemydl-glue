@@ -21,8 +21,8 @@ class Headers(BaseModel):
     Sec_Fetch_Mode: str = Field(..., alias="Sec-Fetch-Mode")
     Sec_Fetch_Site: str = Field(..., alias="Sec-Fetch-Site")
     Priority: str
-    Pragma: str
-    Cache_Control: str = Field(..., alias="Cache-Control")
+    # Pragma: str
+    # Cache_Control: str = Field(..., alias="Cache-Control")
     # TE: str
 
 
@@ -38,5 +38,5 @@ class Model(BaseModel):
     method: str
     headers: Headers
     # queries: Queries
-    data: str
-    compressed: bool
+    # data: str
+    # compressed: bool
