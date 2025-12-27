@@ -31,7 +31,7 @@ echo "$KEY_PAIR_JSON" > "$COURSE_KEY_FILE"
 rm "$KEYFILE_PATH"
 ln -s "$COURSE_KEY_FILE" "$KEYFILE_PATH"
 
-udemy-dl \
+python3 udemy_dl/main.py \
   --batch-playlists \
   --embed-subs \
   --decrypt \

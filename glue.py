@@ -80,7 +80,9 @@ def get_tpd_keys(curl_converter_dir: Path, tpd_keys_dir: Path):
     init_data_str = init_data_txt_path.read_text().strip()
     pssh_value = get_pssh(init_data_str)
     print("PSSH_KEY:", pssh_value)
-    raw_url = raw_url.replace("^&", "&") # bug in firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=1971667
+    raw_url = raw_url.replace(
+        "^&", "&"
+    )  # bug in firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=1971667
     print("RAW_URL:", raw_url)
     os.chdir(scripting_dir)
     args = ["/bin/sh", "./get-tpd.sh", str(tpd_keys_dir)]
@@ -220,7 +222,12 @@ if __name__ == "__main__":
         curl_converter_dir=args.curl_conv_dir, tpd_keys_dir=args.tpd_keys_dir
     )
     course_data = get_course_data(tpd_output.referer_url)
-    instructor_name = fetch_instructor_name(course_data.course_url)
+    print(course_data.course_url)
+    parsed_url = parse.urlparse(course_data.course_url)
+    new_course_url = parsed_url._replace(netloc="www.udemy.com").geturl()
+    print(course_data.course_url)
+    print(new_course_url)
+    instructor_name = fetch_instructor_name(new_course_url)
     if instructor_name is None:
         print("INSTRUCTOR NOT FOUND")
         sys.exit(1)
