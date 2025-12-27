@@ -30,7 +30,7 @@ Now the command `udemy-dl` is runnable.
 
 ## Usage
 
-Now for an Udemy course with DRM, copy the Init Data to `resources/init_data.txt` and copy the Copy as cURL to `resources/curl.txt`.
+Now for an Udemy course with DRM, copy the Init Data (from the browser console) to `resources/init_data.txt` and copy the Copy as cURL (filter by widevine from the Network Requests) to `resources/curl.txt`.
 
 ```bash
 python3 -m venv .venv
