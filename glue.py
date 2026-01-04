@@ -21,6 +21,23 @@ def get_pssh(init_data: str) -> str:
     return result
 
 
+# currently handling 3 cases:
+# - "{init_data}"
+# - "Init Data: {init_data}"
+# - "[EME] (CALL) MediaKeySession::generateRequestSession ID: (not available)Init Data Type: cencInit Data: {init_data} EME-Logger.user.js:331:25"
+def parse_init_data(init_data_txt_path: Path):
+    init_data_str = init_data_txt_path.read_text().strip()
+    init_data_prefix = "Init Data:"
+    if init_data_str.startswith(init_data_prefix):
+        init_data_str = init_data_str[len(init_data_prefix) :].strip()
+        return init_data_str
+    words = init_data_str.split()
+    if len(words) <= 1:
+        return init_data_str
+    data_colon_index = words.index("Data:")
+    return words[data_colon_index + 1]
+
+
 @dataclass
 class KeyPairReferer:
     key_pair_json: str
@@ -77,7 +94,7 @@ def get_tpd_keys(curl_converter_dir: Path, tpd_keys_dir: Path):
     print("RAW URL:", raw_url, "\n", sep="\n")
     referer_url = curl_json_output.headers.Referer
     print("REFERER URL:", referer_url, "\n", sep="\n")
-    init_data_str = init_data_txt_path.read_text().strip()
+    init_data_str = parse_init_data(init_data_txt_path)
     pssh_value = get_pssh(init_data_str)
     print("PSSH_KEY:", pssh_value)
     raw_url = raw_url.replace(
