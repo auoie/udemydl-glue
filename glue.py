@@ -154,9 +154,7 @@ def get_course_data(referer_url: str) -> CourseData:
     return CourseData(course_name, course_url)
 
 
-def fetch_instructor_name(course_url: str) -> str | None:
-    response = requests.get(course_url)
-    body = response.text
+def parse_instructor_name(body: str):
     soup = BeautifulSoup(body, "html.parser")
     head = soup.head
     if head is None:
@@ -170,6 +168,33 @@ def fetch_instructor_name(course_url: str) -> str | None:
         return None
     parsed_instuctor_url = parse.urlparse(instructor_url)
     return parsed_instuctor_url.path.split("/")[2]
+
+
+def parse_instructor_name2(body: str) -> str | None:
+    soup = BeautifulSoup(body, "html.parser")
+    # Find the element
+    a = soup.find(
+        "a",
+        class_="instructor-display-module-scss-module__-KB2AG__instructor-link",
+    )
+    # Extract the value
+    if a:
+        href: str = a.get("href")
+        user_id: str = href.rstrip("/").split("/")[-1]
+        print(href)  # /user/a9ff8aeb-0700-4b60-950d-ffdce7bf69bc/
+        print(user_id)  # a9ff8aeb-0700-4b60-950d-ffdce7bf69bc
+    if user_id:
+        return user_id
+    return None
+
+
+def fetch_instructor_name(course_url: str) -> str | None:
+    response = requests.get(course_url)
+    body = response.text
+    result = parse_instructor_name(body)
+    if result == None:
+        return parse_instructor_name2(body)
+    return result
 
 
 @dataclass
